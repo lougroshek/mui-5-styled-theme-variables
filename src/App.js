@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 
-function App() {
+const theme = createTheme({
+  extras: {
+    colors: {
+      black: "#000",
+    },
+    special: {
+      color: "orange",
+    },
+  },
+});
+
+const MyStyledComponent = styled("div")(({ theme }) => ({
+  width: "100%",
+  backgroundColor: theme.extras.special.color,
+  border: `1px solid ${theme.extras.colors.black}`,
+}));
+
+const App = (props) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <header className="App-header">Header</header>
+      </div>
+      <MyStyledComponent>Styled component</MyStyledComponent>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
